@@ -7,4 +7,9 @@ public class CeldaAmiga extends Celda {
 		
 	}
 
+	@Override
+	public Celda queSoy() {
+		return this;
+	}
+
 }

@@ -6,7 +6,7 @@ public class Mapa {
 	
 	
 	private Mapa() {
-		celdas= new Celda[30][30];
+		celdas= new Celda[29][29];
 		for(int i= 0 ; i<celdas.length ; i++) {
 			for(int j= 0 ; j<celdas[0].length ; j++) {
 				celdas[i][j]= new Celda(i,j);
@@ -14,12 +14,13 @@ public class Mapa {
 		}
 	}
 	
-	
 	static public Mapa getMapa() {
 		if(mapa==null) {
 			mapa=new Mapa();
 			}
 		return mapa;
 		}
+	
+	
 	}
 

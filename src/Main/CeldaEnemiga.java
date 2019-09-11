@@ -6,4 +6,9 @@ public class CeldaEnemiga extends Celda {
 		super(i, j);	
 	}
 
+	@Override
+	public Celda queSoy() {
+		return this;
+	}
+
 }

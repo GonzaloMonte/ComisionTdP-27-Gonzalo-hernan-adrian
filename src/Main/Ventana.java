@@ -40,6 +40,7 @@ public class Ventana extends JFrame {
 			for(int j=0 ; j<celdas[0].length ; j++) {
 				celdas[i][j] = new JLabel();
 				panelPrincipal.add(celdas[i][j]);
+
 			}
 		}
 	}
