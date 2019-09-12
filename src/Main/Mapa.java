@@ -13,7 +13,20 @@ public class Mapa {
 			}
 		}
 	}
-	
+	private void CrearCeldaAmiga(int filaesqsup , int columesqsup,int  filaesqinf, int columesqinf) {
+			for(int i=filaesqsup ; i<filaesqinf+1 ; i++) {
+				for(int j=columesqsup ; j<columesqsup+1 ; j++) {
+					celdas[i][j]=new CeldaAmiga(i,j);
+			}
+		}
+	}
+	private void CrearCeldaEnemiga(int filaesqsup , int columesqsup,int  filaesqinf, int columesqinf) {
+		for(int i=filaesqsup ; i<filaesqinf+1 ; i++) {
+			for(int j=columesqsup ; j<columesqsup+1 ; j++) {
+				celdas[i][j]=new CeldaEnemiga(i,j);
+		}
+	}
+}
 	static public Mapa getMapa() {
 		if(mapa==null) {
 			mapa=new Mapa();
