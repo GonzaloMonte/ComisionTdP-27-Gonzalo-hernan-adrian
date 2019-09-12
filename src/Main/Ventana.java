@@ -13,7 +13,7 @@ public class Ventana extends JFrame {
 	protected JPanel panelPrincipal;
 	protected Mapa mapa;
 	
-	
+	//quiero ir al grupo de lucas y boris 
 	public Ventana() {
 		super ("Avengers Defense");
 		mapa = new Mapa();
