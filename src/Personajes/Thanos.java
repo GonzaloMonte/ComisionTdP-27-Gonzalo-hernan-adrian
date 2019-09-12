@@ -3,10 +3,10 @@ package Personajes;
 import Objetos.*;
 
 public class Thanos extends Enemigo{
-	Thanos(Objeto Premio){	
+	public Thanos(Objeto Premio){	
 		super(15000,500,90,Premio);
 	}
-	Thanos(){
+	public Thanos(){
 		super(150000,500,90);
 	}
 }

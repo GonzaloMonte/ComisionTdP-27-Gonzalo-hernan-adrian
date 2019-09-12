@@ -3,10 +3,11 @@ package Personajes;
 import Objetos.*;
 
 public class Robot extends Enemigo{
-	Robot(Objeto Premio){	
+	
+	public Robot(Objeto Premio){	
 		super(4000,300,30,Premio);
 	}
-	Robot(){
+	public Robot(){
 		super(4000,300,30);
 	}
 }

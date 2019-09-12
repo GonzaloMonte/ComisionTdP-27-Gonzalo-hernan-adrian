@@ -10,7 +10,9 @@ package Personajes;
 			return vida;
 	    }
 		
-		
+		public String queSoy() {
+			return "vacio";
+		}
 		
 		
 }

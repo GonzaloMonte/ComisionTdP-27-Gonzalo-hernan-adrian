@@ -3,10 +3,10 @@ package Personajes;
 import Objetos.*;
 
 public class TanqueCr extends Enemigo{
-	TanqueCr(Objeto Premio){	
+	public TanqueCr(Objeto Premio){	
 		super(200,15,90,Premio);
 	}
-	TanqueCr(){
+	public TanqueCr(){
 		super(200,15,90);
 	} 
 }

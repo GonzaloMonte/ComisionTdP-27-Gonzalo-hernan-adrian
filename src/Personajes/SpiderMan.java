@@ -1,7 +1,7 @@
 package Personajes;
 
 public class SpiderMan extends Heroe{
-	SpiderMan(){ 
+	public SpiderMan(){ 
 		super(100,25,6);
 	
 	}

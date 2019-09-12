@@ -3,6 +3,7 @@ package Main;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,8 +16,7 @@ public class Ventana extends JFrame {
 	
 	public Ventana() {
 		super ("Avengers Defense");
-		mapa = Mapa.getMapa();
-		
+		mapa = new Mapa();
 		setDefaultCloseOperation (EXIT_ON_CLOSE);
 		setSize(new Dimension(700,700));
 		
@@ -32,15 +32,19 @@ public class Ventana extends JFrame {
 		iniciarMatriz();
 		this.add(panelPrincipal);
 		
+		
 	}
 	
 	private void iniciarMatriz() {
+		
 		celdas= new JLabel[30][30];
-		for(int i=0 ; i<celdas.length ; i++) {
+		for(int i=0 ; i<celdas.length; i++) {
 			for(int j=0 ; j<celdas[0].length ; j++) {
 				celdas[i][j] = new JLabel();
+				celdas[i][j].setIcon(new ImageIcon("img/"+mapa.queCeldaEs(i,j)+".jpg"));
+				
 				panelPrincipal.add(celdas[i][j]);
-
+				
 			}
 		}
 	}

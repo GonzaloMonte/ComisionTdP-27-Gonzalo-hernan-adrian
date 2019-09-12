@@ -10,7 +10,7 @@ import Objetos.*;
 		 this.recompensa=recompensa;
 		 this.daño=daño;
 		}
-		Enemigo(int vida,int recompensa,int daño,Objeto p){
+		public Enemigo(int vida,int recompensa,int daño,Objeto p){
 			 super(vida);
 			 this.recompensa=recompensa;
 			 this.daño=daño;
