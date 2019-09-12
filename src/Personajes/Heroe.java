@@ -1,9 +1,11 @@
 package Personajes;
 
 	public abstract class Heroe extends Personaje{
+		
 		protected int daño;
 		protected boolean aereo=false;
 		protected int alcance;
+		
 		public Heroe(int vida,int d,int a){
 		 super(vida);
 		 daño=d;

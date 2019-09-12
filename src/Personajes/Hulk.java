@@ -1,7 +1,8 @@
 package Personajes;
 
 	public class Hulk extends Heroe{
-		Hulk(){ 
+		
+		public Hulk(){ 
 			super(100,30,3);
 		}
 	}

@@ -7,8 +7,8 @@ public class CeldaEnemiga extends Celda {
 	}
 
 	@Override
-	public Celda queSoy() {
-		return this;
+	public String queSoy() {
+		return "celdaEnemiga";
 	}
 
 }

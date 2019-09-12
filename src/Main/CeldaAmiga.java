@@ -7,9 +7,12 @@ public class CeldaAmiga extends Celda {
 		
 	}
 
-	@Override
-	public Celda queSoy() {
-		return this;
+	
+	public String queSoy() {
+		if (personaje==null) {
+			return "celdaAliada";
+		}
+		else return "ironman";
 	}
 
 }
