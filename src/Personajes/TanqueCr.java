@@ -1,12 +1,13 @@
 package Personajes;
 
+import Main.Pair;
 import Objetos.*;
 
 public class TanqueCr extends Enemigo{
-	public TanqueCr(Objeto Premio){	
-		super(200,15,90,Premio);
+	public TanqueCr(Pair[] p){	
+		super(200,15,90,p);
 	}
-	public TanqueCr(){
-		super(200,15,90);
+	public TanqueCr(Objeto o,Pair[] p){
+		super(200,15,90,o,p);
 	} 
 }
