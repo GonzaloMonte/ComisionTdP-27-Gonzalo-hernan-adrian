@@ -1,5 +1,8 @@
 package Main;
 
+
+import java.util.ArrayList;
+
 import Personajes.*;
 import Personajes.IronMan;
 
@@ -9,7 +12,7 @@ public class Mapa {
 	protected int Dinero;
 	protected int Score;
 	protected int Base;
-	
+	protected ArrayList<Enemigo> listaEnemigos;
 	int k=0;
 	public Mapa() {
 		celdas= new Celda[30][30];
@@ -20,6 +23,7 @@ public class Mapa {
 		}
 		crearMapa();
 		celdas[0][3].agregarPersonaje(new IronMan());
+		listaEnemigos=new ArrayList<Enemigo>();
 	}
 	private void crearCeldaAmiga(int filaesqsup , int columesqsup,int  filaesqinf, int columesqinf) {
 			for(int i=filaesqsup ; i<filaesqinf+1 ; i++) {
@@ -144,4 +148,23 @@ public class Mapa {
 	public int getBase(){
 		return Base;	
 	}
+	public void agregarEnemigo(Enemigo e) {
+		listaEnemigos.add(e);
+	}
+	public void eliminarEnemigo(Enemigo e) {
+		listaEnemigos.remove(e);
+	}
+	public void actualizarEnemigo() {
+		if (!listaEnemigos.isEmpty()) {
+		Enemigo e=listaEnemigos.get(0);
+			if (e.getVida()==0) {
+				Score=Score+e.getRecompensa();
+				eliminarEnemigo(e);
+			}
+		}
+	}
+	public ArrayList<Enemigo> listaEnemigosVivos(){
+		return listaEnemigos;
+	}
+	
 }

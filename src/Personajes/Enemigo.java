@@ -2,7 +2,7 @@ package Personajes;
 import Objetos.*;
 
 import Main.*;
-	public abstract class Enemigo extends Personaje{
+	public class Enemigo extends Personaje{
 		protected int velocidad; //
 		protected int recompensa;//por matarlo en monedas o dolar se suma al dinero del jugador
 		protected int daño;//No ataca a la ciudad ,sino que es el daño  al llegar a la base.
@@ -10,7 +10,7 @@ import Main.*;
 		protected Pair[] camino;
 		protected Pair pos;
 		protected int k;
-		Enemigo(int vida,int recompensa,int daño,Pair[] cam){
+		public Enemigo(int vida,int recompensa,int daño,Pair[] cam){
 		 super(vida);
 		 this.recompensa=recompensa;
 		 this.daño=daño;
@@ -27,15 +27,15 @@ import Main.*;
 			 k=0;
 			}
 		
-		int getVelocidad(){
+		public int getVelocidad(){
 			return velocidad;
 		}
 		
-		int getRecompensa(){
+		public int getRecompensa(){
 			return recompensa;
 		}
 		
-		int getDaño(){
+		public int getDaño(){
 			return daño;
 		}
 		/**
@@ -43,7 +43,7 @@ import Main.*;
 		 * 
 		 * @param a es el valor de daño del heroe que lo ataco
 		 */
-		void atacado(int a){
+		public void atacado(int a){
 			daño=daño-a;
 		}
 		public int getX(){
@@ -57,5 +57,8 @@ import Main.*;
 		public void mover(){
 			k++;
 			pos=camino[k];
+		}
+		public void setVida(int i) {
+			vida=i;
 		}
 	}

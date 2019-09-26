@@ -5,15 +5,18 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.*;
-
+import java.awt.EventQueue;
+import java.awt.event.*;
 
 import Personajes.*;
 
-public class Ventana extends JFrame {
+public class Ventana extends JFrame implements KeyListener {
 	protected JButton [][] celdas;
 	protected JButton [] heroes;
 	protected JLabel Dinero,Score,VidaDeLaBase;
@@ -22,7 +25,7 @@ public class Ventana extends JFrame {
 	protected String heroe;
 	
 	protected Mapa mapa;
-	//quiero ir al grupo de lucas y boris 
+	
 	public Ventana() {
 		super ("Avengers Defense");
 		mapa = new Mapa();
@@ -43,7 +46,8 @@ public class Ventana extends JFrame {
 		panelPrincipal.setLayout(new GridLayout(30,30));
 		iniciarMatriz();
 		armarTienda();
-		
+		getContentPane().setFocusable(true);
+		getContentPane().addKeyListener(this);
 		getContentPane().add(panelPrincipal,BorderLayout.CENTER);
 		getContentPane().add(panelTienda,BorderLayout.EAST);
 		contador=new ContadorTiempo(this,mapa);
@@ -114,9 +118,10 @@ public class Ventana extends JFrame {
 	}
 	
 	public Enemigo empezarOleada(){
-		mapa.crearMapa();
-		Enemigo e1=new TanqueCr(mapa.getCamino1());
-		return e1;}
+		Enemigo e1=new Enemigo(1,1,1,mapa.getCamino1());
+		mapa.agregarEnemigo(e1);
+		return e1;
+		}
 	
 	public void colocarEnemigo(Enemigo e1){
 		
@@ -171,5 +176,27 @@ public class Ventana extends JFrame {
 						celdas[i][j].setIcon(new ImageIcon("C:/Users/adm/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/CapitanAmerica/CapitanAmerica_Mapa.png"));
 					
 		}
+	}
+	public void keyPressed(KeyEvent e) {
+		
+		 if (KeyEvent.VK_ESCAPE==e.getKeyCode()) {
+			 Enemigo e1=mapa.listaEnemigosVivos().get(0);
+			 e1.setVida(0);
+			 limpiarCelda(e1.getX(),e1.getY());
+			 mapa.actualizarEnemigo();
+			 Score.setText("Score: "+mapa.getScore());
+		 }
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }

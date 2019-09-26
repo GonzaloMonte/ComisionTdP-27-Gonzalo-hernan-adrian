@@ -10,16 +10,21 @@ public class ContadorTiempo extends Thread {
 		mapa=m;
 	}
 	public void run(){
-		Enemigo e1=ventana.empezarOleada();
+		ventana.empezarOleada();
 		while(true){
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			ventana.limpiarCelda(e1.getX(),e1.getY());
-			e1.mover();
-			ventana.colocarEnemigo(e1);
+			if (!(mapa.listaEnemigosVivos().isEmpty()))
+			for (Enemigo e: mapa.listaEnemigosVivos()) {
+			
+			ventana.limpiarCelda(e.getX(),e.getY());
+			e.mover();
+			ventana.colocarEnemigo(e);
+			
+			}
 		}	
 	}	
 }
