@@ -6,6 +6,10 @@ import Personajes.IronMan;
 public class Mapa {
 	protected Celda[][] celdas;
 	protected Pair[] camino1,camino2,camino3;
+	protected int Dinero;
+	protected int Score;
+	protected int Base;
+	
 	int k=0;
 	public Mapa() {
 		celdas= new Celda[30][30];
@@ -114,10 +118,30 @@ public class Mapa {
 	public String queCeldaEs(int i,int j) {
 		return celdas[i][j].queSoy();
 	}
-		
-
+	 
+	
+	
+	
+	public Heroe obtenerHeroe(int i ,int j){
+		return ((CeldaAmiga)celdas[i][j]).getHeroe();
+	}	
+	public void setDinero(int d){
+		 Dinero-=d;
+	}
+	public void setScore(int s){
+		 Score-=s;
+	}
+	public void setBase(int b){
+		 Base-=b;	
+	}
+	
+	public int getDinero(){
+		return Dinero;
+	}
+	public int getScore(){
+		return Score;
+	}
+	public int getBase(){
+		return Base;	
+	}
 }
-	
-	
-	
-

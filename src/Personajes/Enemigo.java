@@ -1,7 +1,6 @@
 package Personajes;
 import Objetos.*;
 
-
 import Main.*;
 	public abstract class Enemigo extends Personaje{
 		protected int velocidad; //
@@ -19,12 +18,12 @@ import Main.*;
 		 k=0;
 		 pos=camino[k];
 				}
-		public Enemigo(int vida,int recompensa,int daño,Objeto p,Pair[] cam){
+		public Enemigo(int vida,int recompensa,int daño,Objeto p,Pair[] p2){
 			 super(vida);
 			 this.recompensa=recompensa;
 			 this.daño=daño;
 			 premio =p;
-			 camino=cam;
+			 camino=p2;
 			 k=0;
 			}
 		

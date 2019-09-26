@@ -1,18 +1,23 @@
 package Main;
 
-public class CeldaAmiga extends Celda {
+import Personajes.Heroe;
 
-	public CeldaAmiga(int i, int j) {
-		super(i, j);
-	}
+public class CeldaAmiga extends Celda {
+		protected Heroe heroe=null;
+	
+		public CeldaAmiga(int i, int j) {
+			super(i, j);
+		}
 
 	
-	public String queSoy() {
-		if (personaje==null) {
-			return "celdaAliada";
+		public String queSoy() {
+			if (personaje==null) 
+				return "celdaAliada";
+			else
+				return "ironman";
 		}
-		else return "ironman";
-
-	}
-
+		
+		public Heroe getHeroe(){
+			return heroe;		
+		}
 }

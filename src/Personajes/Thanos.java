@@ -1,13 +1,13 @@
 package Personajes;
 
 import Objetos.*;
-import javafx.util.Pair;
+import Main.Pair;
 
 public class Thanos extends Enemigo{
-	public Thanos(Objeto Premio,Pair<Integer,Integer>[] p){	
+	public Thanos(Objeto Premio,Pair[] p){	
 		super(15000,500,90,Premio,p);
 	}
-	public Thanos(Pair<Integer,Integer>[] p){
+	public Thanos(Pair[] p){
 		super(150000,500,90,p);
 	}
 }
