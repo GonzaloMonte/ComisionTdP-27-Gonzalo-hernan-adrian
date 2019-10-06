@@ -1,5 +1,6 @@
 package Main;
 
+import Personajes.*;
 
 import java.util.ArrayList;
 
@@ -14,7 +15,11 @@ public class Mapa {
 	protected int Base;
 	protected ArrayList<Enemigo> listaEnemigos;
 	int k=0;
-	public Mapa() {
+	protected Ventana ventana;
+	protected TanqueCr[] oleada1;
+	
+	public Mapa(Ventana ventana) {
+		this.ventana=ventana;
 		celdas= new Celda[30][30];
 		for(int i= 0 ; i<celdas.length ; i++) {
 			for(int j= 0 ; j<celdas[0].length ; j++) {
@@ -25,13 +30,16 @@ public class Mapa {
 		celdas[0][3].agregarPersonaje(new IronMan());
 		listaEnemigos=new ArrayList<Enemigo>();
 	}
+	
 	private void crearCeldaAmiga(int filaesqsup , int columesqsup,int  filaesqinf, int columesqinf) {
-			for(int i=filaesqsup ; i<filaesqinf+1 ; i++) {
-				for(int j=columesqsup ; j<columesqinf+1 ; j++) {
-					celdas[i][j]=new CeldaAmiga(i,j);
+		for(int i=filaesqsup ; i<filaesqinf+1 ; i++) {
+			for(int j=columesqsup ; j<columesqinf+1 ; j++) {
+				celdas[i][j]=new CeldaAmiga(i,j);
 			}
 		}
 	}
+
+	
 	private void crearCeldaEnemiga(int filaesqsup , int columesqsup,int  filaesqinf, int columesqinf) {
 		for(int i=filaesqsup ; i<filaesqinf+1 ; i++) {
 			for(int j=columesqsup ; j<columesqinf+1 ; j++) {
@@ -39,6 +47,7 @@ public class Mapa {
 			}
 		}
 	}
+	
 	public void crearMapa() {
 		crearCeldaAmiga(0,0,5,18);
 		crearCeldaAmiga(9,0,14,5);
@@ -60,10 +69,9 @@ public class Mapa {
 	}
 	
 	private void crearExtras() {
-	 
-
 		
 	}
+	
 	private void crearCaminos() {
 	camino1=new Pair[45];
 	camino1[0]=new Pair(7,0);
@@ -119,41 +127,30 @@ public class Mapa {
 		return camino1;
 	}
 	
-	public String queCeldaEs(int i,int j) {
-		return celdas[i][j].queSoy();
-	}
-	 
-	
-	
-	
 	public Heroe obtenerHeroe(int i ,int j){
 		return ((CeldaAmiga)celdas[i][j]).getHeroe();
 	}	
-	public void setDinero(int d){
-		 Dinero-=d;
-	}
-	public void setScore(int s){
-		 Score-=s;
-	}
-	public void setBase(int b){
-		 Base-=b;	
-	}
 	
 	public int getDinero(){
 		return Dinero;
 	}
+	
 	public int getScore(){
 		return Score;
 	}
+	
 	public int getBase(){
 		return Base;	
 	}
+	
 	public void agregarEnemigo(Enemigo e) {
 		listaEnemigos.add(e);
 	}
+	
 	public void eliminarEnemigo(Enemigo e) {
 		listaEnemigos.remove(e);
 	}
+	
 	public void actualizarEnemigo() {
 		if (!listaEnemigos.isEmpty()) {
 		Enemigo e=listaEnemigos.get(0);
@@ -163,8 +160,69 @@ public class Mapa {
 			}
 		}
 	}
+	
 	public ArrayList<Enemigo> listaEnemigosVivos(){
 		return listaEnemigos;
 	}
 	
+	public void primerOleada(){
+		oleada1=(TanqueCr[]) new TanqueCr[20];
+		oleada1[0]=new TanqueCr(camino1);
+		oleada1[1]=oleada1[0].clone();
+		oleada1[2]=oleada1[0].clone();
+		oleada1[3]=oleada1[0].clone();
+		oleada1[4]=oleada1[0].clone();
+		oleada1[5]=oleada1[0].clone();
+		oleada1[6]=oleada1[0].clone();
+		oleada1[7]=oleada1[0].clone();
+		oleada1[8]=oleada1[0].clone();
+		oleada1[9]=oleada1[0].clone();
+		oleada1[10]=oleada1[0].clone();
+		oleada1[11]=oleada1[0].clone();
+		oleada1[12]=oleada1[0].clone();
+		oleada1[13]=oleada1[0].clone();
+		oleada1[14]=oleada1[0].clone();
+		oleada1[15]=oleada1[0].clone();
+		oleada1[16]=oleada1[0].clone();
+		oleada1[17]=oleada1[0].clone();
+		oleada1[18]=oleada1[0].clone();
+		oleada1[19]=oleada1[0].clone();
+		PrimeraOleada contador=new PrimeraOleada(this);
+		contador.start();
+	}
+	
+	public void mover(int k){
+		int j=0;
+		if(!oleada1[k].llego())
+			for( j=0;j<=k;j++){
+				ventana.limpiarCelda(oleada1[j].getX(),oleada1[j].getY());
+				oleada1[j].mover();
+				ventana.colocarEnemigo(oleada1[j]);
+						//ventana.colocarEnemigo(oleada1[j]);				
+						//ventana.limpiarCelda(oleada1[j].getX(),oleada1[j].getY());
+			}
+	}
+	
+	public String queCeldaEs(int i,int j) {
+		return celdas[i][j].queSoy();
+	}
+	 
+	public void setDinero(int d){
+		 Dinero-=d;
+	}
+	
+	public void setScore(int s){
+		 Score-=s;
+	}
+	
+	public void setBase(int b){
+		 Base-=b;	
+	}
+
+	public TanqueCr[] getOleada1() {
+		// TODO Auto-generated method stub
+		return oleada1;
+	}
+
+
 }
