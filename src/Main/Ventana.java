@@ -71,11 +71,11 @@ public class Ventana extends JFrame implements KeyListener {
 		heroes[3].setBackground(Color.YELLOW);
 		heroes[4].setBackground(Color.GRAY);
 		
-		heroes[0].setIcon(new ImageIcon("C:/Users/adm/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/SpiderMan_Tienda.png"));
-		heroes[1].setIcon(new ImageIcon("C:/Users/adm/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/CapitanAmerica_Tienda.png"));
-		heroes[2].setIcon(new ImageIcon("C:/Users/adm/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/Hulk_Tienda.png"));
-		heroes[3].setIcon(new ImageIcon("C:/Users/adm/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/IronMan_Tienda.png"));
-		heroes[4].setIcon(new ImageIcon("C:/Users/adm/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/Thor_Tienda.png"));
+		heroes[0].setIcon(new ImageIcon("C:/Users/Hernan/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/SpiderMan_Tienda.png"));
+		heroes[1].setIcon(new ImageIcon("C:/Users/Hernan/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/CapitanAmerica_Tienda.png"));
+		heroes[2].setIcon(new ImageIcon("C:/Users/Hernan/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/Hulk_Tienda.png"));
+		heroes[3].setIcon(new ImageIcon("C:/Users/Hernan/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/IronMan_Tienda.png"));
+		heroes[4].setIcon(new ImageIcon("C:/Users/Hernan/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/Thor_Tienda.png"));
 
 		Dinero=new JLabel("Dinero :      ");
 		Score=new JLabel(" Score   :");
@@ -108,7 +108,7 @@ public class Ventana extends JFrame implements KeyListener {
 		for(int i=0 ; i<celdas.length; i++) {
 			for(int j=0 ; j<celdas[0].length ; j++) {
 				celdas[i][j]=new JButton();
-				celdas[i][j].setIcon(new ImageIcon("C:/Users/adm/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/"+mapa.queCeldaEs(i,j)+".jpg"));
+				celdas[i][j].setIcon(new ImageIcon("C:/Users/Hernan/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/"+mapa.queCeldaEs(i,j)+".jpg"));
 				celdas[i][j].addActionListener(oyenteC);
 				celdas[i][j].setActionCommand(i+" "+j);
 				panelPrincipal.add(celdas[i][j]);
@@ -126,15 +126,15 @@ public class Ventana extends JFrame implements KeyListener {
 	public void colocarEnemigo(Enemigo e1){
 		
 		if(e1.getY()==7||e1.getY()==20)
-			celdas[e1.getX()][e1.getY()].setIcon(new ImageIcon("C:/Users/adm/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/TanqueCr_V.jpg"));
+			celdas[e1.getX()][e1.getY()].setIcon(new ImageIcon("C:/Users/Hernan/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/TanqueCr_V.jpg"));
 
 		else	
-			celdas[e1.getX()][e1.getY()].setIcon(new ImageIcon("C:/Users/adm/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/TanqueCr_H.jpg"));
+			celdas[e1.getX()][e1.getY()].setIcon(new ImageIcon("C:/Users/Hernan/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/TanqueCr_H.jpg"));
 		
 	}
 
 	public void limpiarCelda(int x, int y) {
-		celdas[x][y].setIcon(new ImageIcon("C:/Users/adm/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/celdaEnemiga.jpg"));
+		celdas[x][y].setIcon(new ImageIcon("C:/Users/Hernan/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/celdaEnemiga.jpg"));
 	}
    
 	
@@ -145,7 +145,7 @@ public class Ventana extends JFrame implements KeyListener {
 			for(int i=0;i<celdas.length;i++)
 				for(int j=0;j<celdas[0].length;j++)
 					if(mapa.queCeldaEs(i, j).equals("celdaAliada") && mapa.obtenerHeroe(i, j)==null)
-						celdas[i][j].setIcon(new ImageIcon("C:/Users/adm/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/celdaAliada_Colocar.gif"));
+						celdas[i][j].setIcon(new ImageIcon("C:/Users/Hernan/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/celdaAliada_Colocar.gif"));
 		}
 	}
 	
@@ -167,14 +167,12 @@ public class Ventana extends JFrame implements KeyListener {
 				recorre++;
 			}
 			j=Integer.parseInt(y);
-			
+			if (heroe!=null)
 			if(mapa.queCeldaEs(i,j).equals("celdaAliada"))
-				if((mapa.queCeldaEs(i,j).equals("celdaAliada") && heroe.equals("Thor")))
-					celdas[i][j].setIcon(new ImageIcon("C:/Users/adm/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/celdaAliada_Colocar.gif"));
-				else
-					if(heroe.equals("CapitanAmerica"))
-						celdas[i][j].setIcon(new ImageIcon("C:/Users/adm/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/CapitanAmerica/CapitanAmerica_Mapa.png"));
-					
+				if((mapa.queCeldaEs(i,j).equals("celdaAliada"))) {
+					celdas[i][j].setIcon(new ImageIcon("C:/Users/Hernan/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/"+heroe+".jpg"));
+					mapa.agregarHeroes(i,j,heroe);
+				}
 		}
 	}
 	public void keyPressed(KeyEvent e) {

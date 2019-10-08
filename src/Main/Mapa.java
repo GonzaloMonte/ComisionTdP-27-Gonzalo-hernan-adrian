@@ -22,7 +22,7 @@ public class Mapa {
 			}
 		}
 		crearMapa();
-		celdas[0][3].agregarPersonaje(new IronMan());
+		celdas[5][3].agregarPersonaje(new IronMan());
 		listaEnemigos=new ArrayList<Enemigo>();
 	}
 	private void crearCeldaAmiga(int filaesqsup , int columesqsup,int  filaesqinf, int columesqinf) {
@@ -166,5 +166,23 @@ public class Mapa {
 	public ArrayList<Enemigo> listaEnemigosVivos(){
 		return listaEnemigos;
 	}
-	
+	public void agregarHeroes(int i,int j,String heroe) {
+		Personaje colocar=null;
+		if (heroe.equals("IronMan")) {
+			colocar=new IronMan();
+		}
+		else if (heroe.equals("Thor")) {
+			colocar=new Thor();
+		}
+			else if (heroe.equals("Hulk")) {
+				colocar=new Hulk();
+			}
+				else if (heroe.equals("CapitanAmerica")) {
+					colocar=new CapitanAmerica();
+				}
+					else if (heroe.equals("SpiderMan")) {
+						colocar=new SpiderMan();
+					}
+		celdas[i][j].agregarPersonaje(colocar);
+	}
 }

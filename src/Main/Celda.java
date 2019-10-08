@@ -15,7 +15,9 @@ public class Celda {
 	} 
 	
 	public boolean ocupada(){
-		return false;
+		if(personaje==null)
+			return false;
+		else return true;
 	}
 	public void agregarPersonaje(Personaje p) {
 		personaje=p;
