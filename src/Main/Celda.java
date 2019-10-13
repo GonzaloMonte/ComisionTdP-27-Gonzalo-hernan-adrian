@@ -1,10 +1,11 @@
 package Main;
 
-import Personajes.Personaje;
+import Personajes.*;
 
 public class Celda {
 	protected int i,j;
-	protected Personaje personaje;
+	protected Entidad personaje;
+	
 	public Celda(int i, int j) {
 		this.i=i;
 		this.j=j;
@@ -17,11 +18,13 @@ public class Celda {
 	public boolean ocupada(){
 		return false;
 	}
-	public void agregarPersonaje(Personaje p) {
+	public void agregarPersonaje(Entidad p) {
 		personaje=p;
 	}
 	
-	
+	public Entidad obtenerEntidad(){	
+		return personaje;
+	}
 	
 	
 }

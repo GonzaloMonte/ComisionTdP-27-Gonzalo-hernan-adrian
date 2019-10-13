@@ -1,29 +1,30 @@
 package Personajes;
 import Objetos.*;
+import Visitor.Visitor;
 import Main.*;
 	
-	public class Enemigo extends Personaje{
+	public class Enemigo extends Entidad{
 		protected int velocidad; //
 		protected int recompensa;//por matarlo en monedas o dolar se suma al dinero del jugador
-		protected int daño;//No ataca a la ciudad ,sino que es el daño  al llegar a la base.
+		protected int dato;//No ataca a la ciudad ,sino que es el daño  al llegar a la base.
 		protected Objeto premio; // No todos los enemigos dan premios
 		protected Pair[] camino;
 		protected Pair pos;
 		protected int k;
 
 		
-		public Enemigo(int vida,int recompensa,int daño,Pair[] cam){
+		public Enemigo(int vida,int recompensa,int dato,Pair[] cam){
 		 super(vida);
 		 this.recompensa=recompensa;
-		 this.daño=daño;
+		 this.dato=dato;
 		 camino=cam;
 		 k=0;
 		 pos=camino[k];
-				}
-		public Enemigo(int vida,int recompensa,int daño,Objeto p,Pair[] p2){
+		}
+		public Enemigo(int vida,int recompensa,int dato,Objeto p,Pair[] p2){
 			 super(vida);
 			 this.recompensa=recompensa;
-			 this.daño=daño;
+			 this.dato=dato;
 			 premio =p;
 			 camino=p2;
 			 k=0;
@@ -39,8 +40,8 @@ import Main.*;
 			return recompensa;
 		}
 		
-		public int getDaño(){
-			return daño;
+		public int getDato(){
+			return dato;
 		}
 		/**
 		 * 
@@ -70,6 +71,11 @@ import Main.*;
 		}
 		public void setVida(int i) {
 			vida=i;
+		}
+		@Override
+		public void accept(Visitor v) {
+			
+			
 		}
 		
 	}

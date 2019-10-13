@@ -5,10 +5,8 @@ import Personajes.*;
 import java.util.ArrayList;
 
 import Personajes.*;
-import Personajes.IronMan;
-
-public class Mapa {
-	protected Celda[][] celdas;
+public class  Mapa {
+	public static Celda[][] celdas;
 	protected Pair[] camino1,camino2,camino3;
 	protected int Dinero;
 	protected int Score;
@@ -17,8 +15,15 @@ public class Mapa {
 	int k=0;
 	protected Ventana ventana;
 	protected TanqueCr[] oleada1;
+	public static Mapa mapa;
 	
-	public Mapa(Ventana ventana) {
+	
+	public static Mapa obtenerMapa(Ventana ventana) {
+	 if(mapa==null)
+		mapa=new Mapa(ventana);
+		 return mapa;
+	}
+	private Mapa(Ventana ventana) {
 		this.ventana=ventana;
 		celdas= new Celda[30][30];
 		for(int i= 0 ; i<celdas.length ; i++) {
@@ -73,7 +78,7 @@ public class Mapa {
 	}
 	
 	private void crearCaminos() {
-	camino1=new Pair[45];
+	camino1=new Pair[47];
 	camino1[0]=new Pair(7,0);
 	camino1[1]=new Pair(7,1);		
 	camino1[2]=new Pair(7,2);		
@@ -118,8 +123,10 @@ public class Mapa {
 	camino1[41]=new Pair(24,22);		
 	camino1[42]=new Pair(24,23);		
 	camino1[43]=new Pair(24,24);		
-	camino1[44]=new Pair(24,25);		
-			
+	camino1[44]=new Pair(24,25);
+	camino1[45]=new Pair(25,25);		
+	camino1[46]=new Pair(26,25);		
+		
 
 	}
 
@@ -220,9 +227,30 @@ public class Mapa {
 	}
 
 	public TanqueCr[] getOleada1() {
-		// TODO Auto-generated method stub
 		return oleada1;
 	}
-
+	public void agregarHeroes(int i,int j,String heroe) {
+		Heroe colocar=null;
+		if (heroe.equals("IronMan")) {
+			colocar=new IronMan();
+		}
+		else if (heroe.equals("Thor")) {
+			colocar=new Thor();
+		}
+			else if (heroe.equals("Hulk")) {
+				colocar=new Hulk();
+			}
+				else if (heroe.equals("CapitanAmerica")) {
+					colocar=new CapitanAmerica();
+				}
+					else if (heroe.equals("SpiderMan")) {
+						colocar=new SpiderMan();
+					}
+		celdas[i][j].agregarPersonaje(colocar);
+		colocar.setX(i);
+		colocar.setY(j);
+		colocar.atacar();
+		
+	}
 
 }
