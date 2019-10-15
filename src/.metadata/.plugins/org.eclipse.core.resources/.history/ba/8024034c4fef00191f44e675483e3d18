@@ -1,0 +1,66 @@
+package Personajes;
+
+import Main.*;
+import Visitor.Visitor;
+import Visitor.VisitorDisparo;
+
+ public class Disparo extends Entidad{
+	 protected int alcance;
+	 protected Pair pos;
+	 protected String direccion;
+	 
+	 public Disparo(Heroe h,int alcance,String s){
+		 super(100);
+		 pos=new Pair(h.getX(),h.getY());
+		 direccion=s;
+		 visitor=new VisitorDisparo();
+	 }
+	 public String queSoy() {
+		 return "disparo";
+	 }
+	
+	public void accept(Visitor v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void actualizar() {
+			mover()
+	}
+
+	public void mover() {
+		int xn=0;
+		int yn=0;
+		int xv=x;
+		int yv=y;
+		if(direccion=="abajo") {
+				yn=y;
+				xn=x+1;
+		}
+		else if(direccion=="arriba") {
+				yn=y;
+				xn=x-1;
+			}
+			else if(direccion=="derecha") {
+				yn=y+1;
+				xn=x;
+			}
+				else if(direccion=="izquierda") {
+					yn=y-1;
+					xn=x;
+				}
+		x=xn;
+		y=yn;
+		Mapa.mapa.agregarEntidad(this);
+		Mapa.celdas[xv][yv].liberarCelda();
+
+		
+		
+	}
+	
+	public Visitor getVisitor() {
+		
+		return visitor;
+	}
+ }
