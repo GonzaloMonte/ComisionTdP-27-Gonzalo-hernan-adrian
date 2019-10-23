@@ -1,0 +1,19 @@
+package Personajes;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
+public class IronMan extends Heroe{
+		
+		public IronMan(){ 
+			super(100,100,4);
+			aereo=true;
+			icono=new JLabel();
+			icono.setIcon(new ImageIcon("img\\ironman.jpg"));
+		
+		}
+		public String queSoy(){
+			return "ironman";
+		}
+		
+	}
