@@ -1,9 +1,12 @@
 package Objetos;
 
-	public abstract class ObjetoConVida {
-		int vida ;
+
+
+public abstract class ObjetoConVida extends Objeto {
+
 		ObjetoConVida(int v) {
-			vida=v;
+			super(v);
+			
 		}
 		
 	}

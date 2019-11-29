@@ -1,43 +1,85 @@
 package Main;
 
 import java.awt.*;
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+
 import javax.swing.ImageIcon;
+
+import Objetos.Bomba;
+
 import javax.swing.*;
 
 import Personajes.*;
-	
+import Visitor.Visitor;
+import Visitor.VisitorMapa;
+import Visitor.VisitorVender;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import java.awt.EventQueue;
-import java.awt.event.*;
 
 
 public class Ventana extends JFrame implements KeyListener {
+	
+	private static final long serialVersionUID = 1L;
 	protected JButton [][] celdas;
-	protected JButton [] heroes;
-	protected JLabel Dinero,Score,VidaDeLaBase;
-	protected JPanel panelPrincipal,panelTienda;
+	protected Boton [] heroes;
+	protected JButton objeto,venderHeroes;
+	protected JLabel Dinero,Score,VidaDeLaBase,juego,bombas;
+	protected JPanel panelPrincipal,panelTienda,Panel;
 	protected ContadorTiempo contador;
-	protected String heroe;
-	
+	protected Entidad heroe;
 	protected Mapa mapa;
+	protected boolean vender;
 	
+	 private JButton play;
+	 private JPanel fondo;
+	 private int i=0;
+	 
 	public Ventana() {
 		super ("Avengers Defense");
-		mapa =Mapa.mapa.obtenerMapa(this);
+		mapa =Mapa.obtenerMapa(this);
+
 		setDefaultCloseOperation (EXIT_ON_CLOSE);
 		setSize(new Dimension(600,500));
 		
-		iniciarGUI();
+
+		menu();
 		setVisible(true);
 	}
+	private void menu(){
+		fondo=new JPanel();
+		fondo.setLayout(new BorderLayout());
+		
+		 play=new JButton();
+		 play.setBackground(Color.black);
+		 play.setIcon(new ImageIcon("img\\Avenger_Tienda.jpg"));
+		OyentePlay oyente=new OyentePlay();
+		play.addActionListener(oyente);
+		fondo.add(play);
+
+		getContentPane().add(fondo);
+		
+	}
+	class OyentePlay implements ActionListener{		
+		public void actionPerformed(ActionEvent e) {
+			if(i==0){
+				play.setIcon(new ImageIcon("img\\instrucciones.png"));
+				i++;
+			}
+			
+			else{
+			play.setEnabled(false);
+			fondo.setEnabled(false);
+			iniciarGUI();
+			getContentPane().remove(play);
+			getContentPane().remove(fondo);
+		
+			}
+		}
+	}
+	
 	
 	private void iniciarGUI() {
 
@@ -45,31 +87,50 @@ public class Ventana extends JFrame implements KeyListener {
 		panelPrincipal= new JPanel();
 		panelTienda=new JPanel();
 		
+		
+		juego=new JLabel();
+		Panel=new JPanel();
+		Panel.setSize(600, 500);
+
+		Panel.add(juego);
+		
 		panelPrincipal.setSize(700, 500);
-		panelPrincipal.setLayout(new GridLayout(30,30));
+		panelPrincipal.setLayout(new GridLayout(20,20));
 		iniciarMatriz();
 		armarTienda();
 		armarEscenario();
 		
 		getContentPane().add(panelPrincipal,BorderLayout.CENTER);
 		getContentPane().add(panelTienda,BorderLayout.EAST);
-		PrimeraOleada e=new PrimeraOleada(mapa,this);
+		PrimeraOleada<Ventana> e=new PrimeraOleada<Ventana>(mapa,this);
 		e.start();
-		
 	}
 	
 	
 	private void armarTienda() {
 		panelTienda.setSize(700, 200);
-		panelTienda.setLayout(new GridLayout(8,1));
-				
-		heroes=new JButton[5];
-		heroes[0]=new JButton("Spiderman");
-		heroes[1]=new JButton("CapitanAmerica");
-		heroes[2]=new JButton("Hulk");
-		heroes[3]=new JButton("IronMan");
-		heroes[4]=new JButton("Thor");
+		panelTienda.setLayout(new GridLayout(11,1));
 		
+		objeto=new JButton();
+		bombas=new JLabel();
+		objeto.setIcon(new ImageIcon("img\\bombaTienda.png"));
+		bombas=new JLabel("Cantidad de Bombas : "+Mapa.mapa.getBombas());
+		objeto.setSize(10,10);
+		OyenteBoton oyenteB=new OyenteBoton();
+		objeto.addActionListener(oyenteB);
+		heroes=new Boton[5];
+		
+		Entidad e=new SpiderMan();
+		heroes[0]=new Boton(e,this);
+		e=new CapitanAmerica();
+		heroes[1]=new Boton(e,this);
+		e=new Hulk();
+		heroes[2]=new Boton(e,this);
+		e=new IronMan();
+		heroes[3]=new Boton(e,this);
+		e=new Thor();
+		heroes[4]=new Boton(e,this);
+
 		heroes[0].setBackground(Color.RED);
 		heroes[1].setBackground(Color.BLUE);
 		heroes[2].setBackground(Color.GREEN);
@@ -84,24 +145,23 @@ public class Ventana extends JFrame implements KeyListener {
 		heroes[4].setIcon(new ImageIcon("img\\Thor_Tienda.png"));
 
 
-		Dinero=new JLabel("Dinero :      ");
-		Score=new JLabel(" Score   :");
-		VidaDeLaBase=new JLabel("Base    :");;
+		Dinero=new JLabel("Dinero : "+Mapa.mapa.getDinero());
+		Score=new JLabel("Score : "+Mapa.mapa.getScore());
+		VidaDeLaBase=new JLabel("Base : "+Mapa.mapa.getBase());
 		
-		OyenteBoton oyenteB=new OyenteBoton();
-		heroes[0].addActionListener(oyenteB);
-		heroes[1].addActionListener(oyenteB);
-		heroes[2].addActionListener(oyenteB);
-		heroes[3].addActionListener(oyenteB);
-		heroes[4].addActionListener(oyenteB);
-							
-
+		venderHeroes=new JButton();
+		venderHeroes.setText("Vender personajes");
+		OyenteBotonV oyenteV=new OyenteBotonV();
+		venderHeroes.addActionListener(oyenteV);
 				
 		panelTienda.add(heroes[0]);
 		panelTienda.add(heroes[1]);
 		panelTienda.add(heroes[2]);
 		panelTienda.add(heroes[3]);
 		panelTienda.add(heroes[4]);
+		panelTienda.add(objeto);
+		panelTienda.add(venderHeroes);
+		panelTienda.add(bombas);
 		panelTienda.add(Dinero);
 		panelTienda.add(Score);
 		panelTienda.add(VidaDeLaBase);
@@ -111,12 +171,12 @@ public class Ventana extends JFrame implements KeyListener {
 
 	private void iniciarMatriz() {
 		
-		celdas= new JButton[30][30];
+		celdas= new JButton[20][20];
 		OyenteCelda oyenteC=new OyenteCelda();
 		for(int i=0 ; i<celdas.length; i++) {
 			for(int j=0 ; j<celdas[0].length ; j++) {
 				celdas[i][j]=new JButton();
-				celdas[i][j].setIcon(new ImageIcon("img\\"+mapa.queCeldaEs(i,j)+".jpg"));
+				celdas[i][j].setIcon(celdas[i][j].getIcon());
 				celdas[i][j].addActionListener(oyenteC);
 				celdas[i][j].setActionCommand(i+" "+j);
 				panelPrincipal.add(celdas[i][j]);
@@ -124,44 +184,15 @@ public class Ventana extends JFrame implements KeyListener {
 			}
 		}
 	}
-	
+	//Para agregar heroes
 
-	
-	public void colocarEnemigo(Enemigo e1){
-		
-		if(e1.getY()==7||e1.getY()==20||e1.getY()==8)
-			celdas[e1.getX()][e1.getY()].setIcon(new ImageIcon("img\\TanqueCr_V.jpg"));
-		else
-			celdas[e1.getX()][e1.getY()].setIcon(new ImageIcon("img\\TanqueCr_H.jpg"));
-
-
-	}
-
-	public void limpiarCelda(int x, int y) {
-
-		celdas[x][y].setIcon(new ImageIcon("img\\celdaEnemiga.jpg"));
-
-
-		//celdas[x][y].setIcon(new ImageIcon("C:/Users/adm/Documents/GitHub/ComisionTdP-27-Gonzalo-hernan-adrian/src/img/celdaEnemiga.jpg"));
-		celdas[x][y].setIcon(new ImageIcon("img\\celdaEnemiga.jpg"));
-
-	}	
-
-	
-	class OyenteBoton implements ActionListener{
-
-		public void actionPerformed(ActionEvent e) {
-			heroe=(String)e.getActionCommand();
-			for(int i=0;i<celdas.length;i++)
-				for(int j=0;j<celdas[0].length;j++)
-					if(mapa.queCeldaEs(i, j).equals("celdaAliada") && mapa.obtenerHeroe(i, j)==null)
-						celdas[i][j].setIcon(new ImageIcon("img\\celdaAliada_Colocar.gif"));
-		}
-	}
 	
 	class OyenteCelda implements ActionListener{
-
+		protected Visitor visitorMapa,visitorvender;
 		public void actionPerformed(ActionEvent e) {
+			visitorMapa=new VisitorMapa();
+			visitorvender=new VisitorVender();
+			
 			String coordenadas=(String)e.getActionCommand();
 			String x="",y="";
 			int i,j,recorre=0;
@@ -177,12 +208,27 @@ public class Ventana extends JFrame implements KeyListener {
 				recorre++;
 			}
 			j=Integer.parseInt(y);
-			if (heroe!=null)
-			if(mapa.queCeldaEs(i,j).equals("celdaAliada"))
-				if((mapa.queCeldaEs(i,j).equals("celdaAliada"))) {
-					celdas[i][j].setIcon(new ImageIcon("img\\"+heroe+".jpg"));
-					mapa.agregarHeroes(i,j,heroe);
+			if (!venderHeroes.isEnabled()) {
+				if (Mapa.celdas[i][j].ocupada()) {
+					Mapa.celdas[i][j].personaje.accept(visitorvender);
 				}
+			}
+			if (Mapa.celdas[i][j].ocupada()) {
+				Mapa.celdas[i][j].personaje.accept(visitorMapa);
+				heroe=null;
+			}
+			else
+				if (!objeto.isEnabled() && !Mapa.celdas[i][j].ocupada()) {
+					Entidad entidad=new Bomba(1,i,j,true);		
+					mapa.agregarEntidad(entidad);
+					mapa.setBombas(mapa.getBombas()-1);
+					objeto.setEnabled(true);
+				}
+				else
+					if (
+							heroe!=null && !Mapa.celdas[i][j].ocupada())
+						mapa.agregarHeroes(i,j,heroe);
+				
 		}
 	}
 
@@ -195,25 +241,73 @@ public class Ventana extends JFrame implements KeyListener {
 		 }
 	}
 
-	@Override
+
 	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
+
 	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	
 	public void armarEscenario() {
+		Dinero.setText("Dinero : "+Mapa.mapa.getDinero());
+		Score.setText("Score : "+Mapa.mapa.getScore());
+		VidaDeLaBase.setText("Base : "+Mapa.mapa.getBase());
+		bombas.setText("Cantidad de Bombas : "+Mapa.mapa.getBombas());
 		for(int i=0;i<celdas.length;i++) {
 			for(int j=0;j<celdas[0].length;j++) {
 				
-					celdas[i][j].setIcon(new ImageIcon("img\\"+mapa.celdas[i][j].queSoy()+".jpg"));
+				
+					celdas[i][j].setIcon(Mapa.celdas[i][j].getLabel().getIcon());
 				}
 		}
 		
 	}
+	public void perder() {
+
+		getContentPane().remove(panelPrincipal);
+	
+		juego.setIcon(new ImageIcon("img\\Juego_Perdido.jpg"));
+		getContentPane().add(Panel);
+		Panel.setVisible(true);
+	}
+	public void ganar(){
+
+		getContentPane().remove(panelPrincipal);
+		juego.setIcon(new ImageIcon("img\\Juego_Ganado.jpg"));
+		getContentPane().add(Panel);
+		Panel.setVisible(true);
+	}
+	
+	public void setHeroe(Entidad e) {
+		heroe=e;
+	}
+	
+	public void setBoton() {
+		venderHeroes.setEnabled(true);
+	}
+	
+	class OyenteBoton implements ActionListener{
+
+
+			public void actionPerformed(ActionEvent e) {
+				if (Mapa.mapa.getBombas()>0) {
+					objeto.setEnabled(false);
+				}
+		
+		}
+	}
+	class OyenteBotonV implements ActionListener{
+
+
+		public void actionPerformed(ActionEvent e) {
+			venderHeroes.setEnabled(false);
+			heroe=null;
+		}
+	}
 }
+

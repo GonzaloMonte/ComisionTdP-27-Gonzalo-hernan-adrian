@@ -1,12 +1,49 @@
 package Personajes;
 import Objetos.*;
-import Main.Pair;
+
+import javax.swing.ImageIcon;
+
+import Main.Mapa;
+
 
 public class TanqueCm extends Enemigo{
-		public TanqueCm(Objeto Premio,Pair[] p){	
-			super(500,100,10,Premio,p);
+	protected int tiempoA;
+	protected int alcance;
+		public TanqueCm(int x,Objeto Premio){	
+			super(500,10,Premio);
+			this.x=x;
+			icono.setIcon(new ImageIcon("img\\TanqueCm.jpg"));
+			iconoEscudo.setIcon(new ImageIcon("img\\TanqueCmEscudo.jpg"));
+			daño=40;
+			velocidad=10;
+			tiempo=10;
+			
 		}
-		public TanqueCm(Pair[] p){
-			super(500,100,10,p);
+		public TanqueCm(int x){
+			super(500,10,x);
+			daño=40;
+			velocidad=10;
+			tiempo=10;
+			icono.setIcon(new ImageIcon("img\\TanqueCm.jpg"));
+			iconoEscudo.setIcon(new ImageIcon("img\\TanqueCmEscudo.jpg"));
 		}
+		public void atacar() {
+			if (tiempoA==0) {
+				int alcanceY=y+alcance;
+				if (alcanceY>=yMax) alcanceY=yMax-1;
+				for(int i=y+1;i<alcanceY && tiempoA==0 ;i++) {
+						if(Mapa.celdas[x][i].ocupada()) {
+						Entidad en=Mapa.celdas[x][i].obtenerEntidad();
+							if(en!=null) {
+								en.getVisitor().visitEnemigo(this);
+								tiempoA=velocidad;
+								tiempo=velocidad;
+							}
+						}
+					}	
+			}
+			else tiempoA=tiempoA-10;
+			}
+		
+		
 	}

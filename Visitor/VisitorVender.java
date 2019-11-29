@@ -1,5 +1,6 @@
 package Visitor;
 
+import Main.Mapa;
 import Objetos.Bomba;
 import Objetos.Congelador;
 import Objetos.Corazon;
@@ -10,18 +11,17 @@ import Personajes.DisparoEnemigo;
 import Personajes.Enemigo;
 import Personajes.Heroe;
 
-public class VisitorEnemigo extends Visitor
-{
+public class VisitorVender extends Visitor{
 
-	
+
 	public void visitAliado(Heroe a) {
-		a.crearDisparo();
-		
+		Mapa.mapa.setDinero(a.getPrecio());
+		a.destruir();
+		Mapa.mapa.activarVender();
 	}
 
-	
+
 	public void visitEnemigo(Enemigo e) {
-		
 		
 	}
 
@@ -31,13 +31,11 @@ public class VisitorEnemigo extends Visitor
 		
 	}
 
-
 	
 	public void visitDisparoEne(DisparoEnemigo d) {
 		
 		
 	}
-
 
 	
 	public void VisitBomba(Bomba b) {
@@ -57,12 +55,13 @@ public class VisitorEnemigo extends Visitor
 		
 	}
 
+
 	public void VisitCongelar(Congelador c) {
 		
 		
 	}
 
-
+	
 	public void VisitPiedra(Piedra p) {
 		
 		
